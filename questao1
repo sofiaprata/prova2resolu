@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MX 10
+
+int main(){
+    int n;
+    puts("Qual o tamanho do vetor? \n");
+    scanf("%d", &n);
+
+
+    int *p;
+
+    if (!(p = (int*) malloc(n* sizeof(int)))){
+        puts("Não há memória disponível.\n");
+        exit(1);
+    }
+
+    srand(time(NULL));
+    for(int i = 0; i <n; i++){
+        *(p+i) = rand() % MX;
+    }
+
+    for(int i =0; i< n; i++){
+        printf("[%p] %d\n", p+i, *(p+i));
+    }
+
+    float *y = NULL;
+
+    if (!(y = (float*) malloc(n* sizeof(float)))){
+        puts("Não há memória disponível.\n");
+        exit(2);
+    }
+
+    int menor = *p, maior = *p;
+
+    for (int i = 0; i <n; i++){
+        menor = (*(p+i) < menor)?*(p+i): menor;
+        maior = (*(p+i) < maior)?*(p+i): maior;
+    }
+
+    for(int i = 0; i < n; i++){
+        *(y+i) = ((float) (*(p+i) - menor)) / (maior - menor);
+    }
+
+    puts("Vetor resultante: \n");
+    for(int i = 0; i< n; i++){
+        printf("[%y] %d\n", y+i, *(y+i));
+    }
+
+    free();
+
+    return 0;
+}
